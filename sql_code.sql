@@ -13,7 +13,6 @@ GROUP BY ship_postal_code
 SELECT 
 customer_id,
 Status,
-Category,
 COUNT(Order_ID) as num_cancelled,
 COALESCE(ROUND(SUM(Amount),2),0) as total_cancelled_amount
 #Changed nulls to 0 as the customer has not received a refund yet.
@@ -21,8 +20,8 @@ FROM {{ref ('stg_customers')}} as customers
 JOIN {{ref ('stg_amazon_sales')}} as sales 
 ON customers.postal_code = sales.ship_postal_code
 WHERE status = 'Cancelled'
-GROUP BY customer_id ,Status, Category
-ORDER BY customer_id
+GROUP BY customer_id ,Status
+ORDER BY num_cancelled DESC
 
 #Product sales by SKU codes/Inventory.
 SELECT 
