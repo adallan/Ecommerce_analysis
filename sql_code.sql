@@ -28,7 +28,8 @@ ORDER BY num_cancelled DESC
 #Product sales by SKU codes/Inventory.
 SELECT 
   SKU_Code, 
-  ROUND(SUM(Amount),2) as Item_sales, 
+  ROUND(SUM(Amount),2) as Item_sales,
+  ROUND(AVG(Amount),2) as Avg_price,
   inventory.Category, 
   COUNT(Order_ID) as Num_sold, 
   inventory.Size, 
